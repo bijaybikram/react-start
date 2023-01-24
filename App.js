@@ -1,9 +1,15 @@
 import { type } from "@testing-library/user-event/dist/type";
 import { useState } from "react";
 import Alert from "./components/Alert";
-// import About from "./components/About";
+import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
 
@@ -28,13 +34,13 @@ function App() {
       // changing page title using js
       document.title = 'TextUtils - Dark Mode';
 
-      To make a blinking dynamic title 
-      setInterval(() => {
-        document.title = 'TextUtils is an amazing Mode';
-      }, 2000);
-      setInterval(() => {
-        document.title = 'Install TextUtils right now!';
-      }, 1500);
+      // To make a blinking dynamic title 
+      // setInterval(() => {
+      //   document.title = 'TextUtils is an amazing Mode';
+      // }, 2000);
+      // setInterval(() => {
+      //   document.title = 'Install TextUtils right now!';
+      // }, 1500);
     }
     else{
       setMode ('light');
@@ -63,16 +69,21 @@ function App() {
     <>
     
 {/* <Navbar title="TextUtils" aboutText="About Us"/> */}
-
+<Router>
 <Navbar title="TextUtils" aboutText="About" mode= {mode} toggleMode={toggleMode} joggleMode={joggleMode}/>
 <Alert alert={alert}/>
 
 <div className="container my-3" >
 
-<TextForm showAlert={showAlert} heading = "Enter the text to analyze" mode= {mode}/>
+  <Routes>
+      <Route path="/about" element={<About/>} />
+      <Route path="/TextForm" element={<TextForm showAlert={showAlert} heading = "Enter the text to analyze" mode= {mode}/>} />
+      
+      
+  </Routes>
 
-{/* <About/> */}
 </div>
+</Router>
 
     </>
   );
