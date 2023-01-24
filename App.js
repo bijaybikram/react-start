@@ -28,13 +28,13 @@ function App() {
       // changing page title using js
       document.title = 'TextUtils - Dark Mode';
 
-      // To make a blinking dynamic title 
-      // setInterval(() => {
-      //   document.title = 'TextUtils is an amazing Mode';
-      // }, 2000);
-      // setInterval(() => {
-      //   document.title = 'Install TextUtils right now!';
-      // }, 1500);
+      To make a blinking dynamic title 
+      setInterval(() => {
+        document.title = 'TextUtils is an amazing Mode';
+      }, 2000);
+      setInterval(() => {
+        document.title = 'Install TextUtils right now!';
+      }, 1500);
     }
     else{
       setMode ('light');
