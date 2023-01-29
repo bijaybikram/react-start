@@ -1,14 +1,14 @@
 import './App.css';
 import React, { useState } from "react";
 import Alert from "./components/Alert";
-// import About from "./components/About";
+import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route
-// } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
 
@@ -28,7 +28,7 @@ function App() {
   const toggleMode = () => {
     if(mode==='light'){
       setMode ('dark');
-      document.body.style.backgroundColor='grey';
+      document.body.style.backgroundColor='#042743';
       showAlert("Dark mode is enabled","success");
       // changing page title using js
       document.title = 'TextUtils - Dark Mode';
@@ -53,7 +53,7 @@ function App() {
   const joggleMode = () => {
     if(mode==='light'){
       setMode ('dark');
-      document.body.style.backgroundColor='blueviolet';
+      document.body.style.backgroundColor='#4f7028';
       showAlert("Blue mode is enabled","success");
       document.title = 'TextUtils - Blue Mode';
     }
@@ -68,23 +68,23 @@ function App() {
     <>
     
 {/* <Navbar title="TextUtils" aboutText="About Us"/> */}
-// <Router>
+<Router>
 <Navbar title="TextUtils" aboutText="About" mode= {mode} toggleMode={toggleMode} joggleMode={joggleMode}/>
 <Alert alert={alert}/>
 
 <div className="container my-3" >
 
-//   <Routes>
-//       <Route path="/about" element={<About/>} />
-//       <Route path="/TextForm" element={<TextForm showAlert={showAlert} heading = "Enter the text to analyze" mode= {mode}/>} />
+  <Routes>
+      <Route path="/about" element={<About mode={mode}/>} />
+      <Route path="/TextForm" element={<TextForm showAlert={showAlert} heading = "Enter the text to analyze" mode= {mode}/>} />
 
-        <TextForm showAlert={showAlert} heading = "Enter the text to analyze" mode= {mode}/>
+      {/* <TextForm showAlert={showAlert} heading = "Enter the text to analyze" mode= {mode}/> */}
       
       
-//   </Routes>
+  </Routes>
 
 </div>
-// </Router>
+</Router>
 
     </>
   );

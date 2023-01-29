@@ -58,30 +58,26 @@ export default function TextForm(props) {
     const handleColorClick = () =>{
         // console.log('uppercase was clcked' + text);
         var newText = document.getElementById('myBox');
-        newText.style.color="green";
+        newText.style.color="yellow";
         props.showAlert("Text color is changed","success")
         
     }
 
     const handleCopy = () => {
-        console.log("I am copy");
+        console.log("I am copied");
         var text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        document.getSelection().removeAllRanges();
         props.showAlert("Text copied to clipboard","success")
     }
 
-    //array of words
-    
-    const wordCount = ()=>{
-        if (text.length>0){
-        return text.trim().split(/[ ]+/).length;
-        }
-        else{
-        return 0;
-        }
-        }
-        
+    const handleSpaces = () =>{
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+    }
+
+
     
 
    
@@ -105,37 +101,37 @@ export default function TextForm(props) {
   return (
     <>
     <div className="container" style={{color: props.mode==='dark'?'white':'black'}}>
-        <h1>{props.heading} </h1>
+        <h1 className='mb-3'>{props.heading} </h1>
         <div className="mb-3">
-            <textarea className="form-control" value ={text} style={{backgroundColor: props.mode==='dark'?'grey':'white' , color: props.mode==='dark'?'white':'black'}} onChange={handleOnChange} id="myBox" cols="30" rows="8"></textarea>
+            <textarea className="form-control" value ={text} style={{backgroundColor: props.mode==='dark'?'rgb(14 69 114)':'white' , color: props.mode==='dark'?'white':'black'}} onChange={handleOnChange} id="myBox" cols="30" rows="8"></textarea>
         </div>
-        <button className='btn btn-primary ' onClick={handleUpClick}>Convert to Uppercase</button>
+        <button disabled = {text.length===0} className='btn btn-primary ' onClick={handleUpClick}>Convert to Uppercase</button>
 
-        <button className='btn btn-primary mx-3' onClick={handleLowClick}>Convert to Lowercase</button>
+        <button disabled = {text.length===0} className='btn btn-primary mx-3' onClick={handleLowClick}>Convert to Lowercase</button>
 
-        <button className='btn btn-primary mx-3' onClick={handleClearClick}>Clear</button>
+        <button disabled = {text.length===0} className='btn btn-primary mx-3' onClick={handleClearClick}>Clear</button>
 
-        <button className='btn btn-primary mx-3' onClick={handleVoClick}>Count Vowels</button>
+        <button disabled = {text.length===0} className='btn btn-primary mx-3' onClick={handleVoClick}>Count Vowels</button>
 
-        <button className='btn btn-primary mx-3' onClick={handleConsClick}>Count Consonants</button>
+        <button disabled = {text.length===0} className='btn btn-primary mx-3' onClick={handleConsClick}>Count Consonants</button>
 
-        <button className='btn btn-primary mx-3' onClick={handleColorClick}>Color Change</button>
+        <button disabled = {text.length===0} className='btn btn-primary mx-3' onClick={handleColorClick}>Color Change</button>
 
-        <button className='btn btn-primary mx-3' onClick={handleCopy}>Copy Text</button>
+        <button disabled = {text.length===0} className='btn btn-primary mx-3' onClick={handleCopy}>Copy Text</button>
 
-        
+        <button disabled = {text.length===0} type="submit" onClick={speak} className="btn btn-warning mx-2 my-2">Speak</button>
 
-        <button type="submit" onClick={speak} className="btn btn-warning mx-2 my-2">Speak</button>
+        <button disabled = {text.length===0} className='btn btn-primary mx-0' onClick={handleSpaces}>Clear Extra Spaces</button>
+
 
     </div>
 
     <div className="container my-3" style={{color: props.mode==='dark'?'white':'black'}}>
         <h2>Your text summary</h2>
-        <p>{wordCount()} words & {text.length} characters</p>
-        <p>{0.008 * text.split(" ").length}
-             Minutes to read </p>
+        <p>{text.split(" ").filter((element) => {return element.length!==0;}).length} words & {text.length} characters</p>
+        <p>{0.008 * text.split(" ").filter((element) => {return element.length!==0;}).length} Minutes to read </p>
         <h2>Preview</h2>
-        <p>{text.length>0?text: "Enter something in the text box above to preview it here"}</p>
+        <p>{text.length>0?text: "Nothing to preview here!"}</p>
     </div>
 
     <div className='container mx-3 my-3' style={{color: props.mode==='dark'?'white':'black'}}>
